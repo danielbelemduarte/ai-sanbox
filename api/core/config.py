@@ -36,13 +36,17 @@ class Settings(BaseSettings):
     POSTGRES_USER: str = "agentchat"
     POSTGRES_PASSWORD: str = "agentchat"
     
-    # Sandbox backend: "subprocess" (default) or "modal"
+    # Sandbox backend: "subprocess" (default), "modal", or "firecracker"
     SANDBOX_BACKEND: str = "subprocess"
 
     # Modal Configuration (for sandbox execution)
     MODAL_TOKEN_ID: str = ""
     MODAL_TOKEN_SECRET: str = ""
-    
+
+    # Firecracker Configuration (for microVM sandbox execution)
+    FIRECRACKER_ORCHESTRATOR_URL: str = ""
+    FIRECRACKER_API_KEY: str = ""
+
     # Anthropic API key
     ANTHROPIC_API_KEY: str = ""
 
