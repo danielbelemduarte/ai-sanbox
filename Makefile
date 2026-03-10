@@ -14,7 +14,7 @@ migrate:
 	cd api && uv run alembic upgrade head
 
 api:
-	cd api && uv run uvicorn main:app --reload --port 8080
+	cd api && uv run python run.py
 
 web:
 	cd web && npm run dev
