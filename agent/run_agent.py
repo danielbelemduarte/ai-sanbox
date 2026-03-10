@@ -128,8 +128,17 @@ async def create_artifact(args: dict[str, Any]) -> dict[str, Any]:
 
 
 async def run():
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        print(json.dumps({"__type": "error", "message": "ANTHROPIC_API_KEY not set"}), flush=True)
+    has_direct = bool(os.environ.get("ANTHROPIC_API_KEY"))
+    has_foundry = bool(os.environ.get("CLAUDE_CODE_USE_FOUNDRY")) and bool(os.environ.get("ANTHROPIC_FOUNDRY_API_KEY"))
+    if not has_direct and not has_foundry:
+        print(json.dumps({
+            "__type": "error",
+            "message": (
+                "No Anthropic credentials found. "
+                "Set ANTHROPIC_API_KEY for direct access, or "
+                "CLAUDE_CODE_USE_FOUNDRY=1 + ANTHROPIC_FOUNDRY_API_KEY + ANTHROPIC_FOUNDRY_BASE_URL for Azure AI Foundry."
+            ),
+        }), flush=True)
         sys.exit(1)
 
     prompt = _read_file("prompt.txt")
